@@ -85,8 +85,6 @@ void __odbc_make_g_db_handle(gdbi_db_handle_t *dbh)
 	ret = SQLDriverConnect(db_info->dbc, NULL, db_name, SQL_NTS, NULL, 0, NULL, SQL_DRIVER_COMPLETE);
 	if (SQL_SUCCEEDED(ret)) {
 		SQLAllocHandle(SQL_HANDLE_STMT, db_info->dbc, &db_info->stmt);	
-		/* Disable autocommit */
-		ret = SQLSetConnectAttr(db_info->dbc, SQL_ATTR_AUTOCOMMIT, (SQLPOINTER)0, 0);
 		dbh->db_info = db_info;
 		dbh->status = status_cons(0, 0, "db connected");
 		dbh->closed = SCM_BOOL_F;
